@@ -23,6 +23,9 @@ Plugin 'fholgado/minibufexpl.vim'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
+" Obviously, I have my own color scheme
+colorscheme chrisrossi
+
 "split navigations
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -48,14 +51,15 @@ set clipboard=unnamedplus
 
 " Pep8
 au BufNewFile,BufRead *.py set
-    \ tabstop=4
-    \ softtabstop=4
-    \ shiftwidth=4
-    \ textwidth=79
-    \ expandtab
     \ autoindent
     \ fileformat=unix
 
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set textwidth=79
+set expandtab
+set cc=80
 let python_highlight_all=1
 syntax on
 
@@ -63,10 +67,10 @@ syntax on
 autocmd BufWritePre *.py :%s/\s\+$//e
 
 " Other files
-au BufNewFile,BufRead *.js, *.html, *.css
-    \ set tabstop=2
-    \ set softtabstop=2
-    \ set shiftwidth=2
+au BufNewFile,BufRead *.js,*.html,*.css set
+    \ tabstop=2
+    \ softtabstop=2
+    \ shiftwidth=2
 
 "Handlebars
 au BufRead,BufNewFile *.handlebars,*.hbs set ft=handlebars
