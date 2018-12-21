@@ -1,3 +1,4 @@
+set ruler
 set nocompatible              " required
 filetype off                  " required
 
@@ -108,7 +109,7 @@ set backspace=2
 
 " Add the virtualenv's site-packages to vim path
 py << EOF
-import os.path
+import os
 import sys
 
 def activate_virtual_env(project_base_dir):
@@ -117,7 +118,10 @@ def activate_virtual_env(project_base_dir):
     execfile(activate_this, dict(__file__=activate_this))
 
 def activate_buildout(folder):
-    bin_py = os.path.join(folder, 'bin', 'py')
+    bin_folder = os.path.join(folder, 'bin')
+    old_path = os.environ.get('PATH', '')
+    os.environ['PATH'] = bin_folder + os.pathsep + old_path
+    bin_py = os.path.join(bin_folder, 'py')
     code = open(bin_py).read()
     code = code[:code.index('\n_interactive')]
     exec code
