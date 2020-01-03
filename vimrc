@@ -19,6 +19,7 @@ Plugin 'vim-scripts/indentpython.vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'nvie/vim-flake8'
 Plugin 'fholgado/minibufexpl.vim'
+"Plugin 'ambv/black'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -108,47 +109,47 @@ set t_Co=256
 set backspace=2
 
 " Add the virtualenv's site-packages to vim path
-py << EOF
-import os
-import sys
-
-def activate_virtual_env(project_base_dir):
-    sys.path.insert(0, project_base_dir)
-    activate_this = os.path.join(project_base_dir, 'bin', 'activate_this.py')
-    execfile(activate_this, dict(__file__=activate_this))
-
-def activate_buildout(folder):
-    bin_folder = os.path.join(folder, 'bin')
-    old_path = os.environ.get('PATH', '')
-    os.environ['PATH'] = bin_folder + os.pathsep + old_path
-    bin_py = os.path.join(bin_folder, 'py')
-    code = open(bin_py).read()
-    code = code[:code.index('\n_interactive')]
-    exec code
-
-if 'VIRTUAL_ENV' in os.environ:
-    # Use virtual env if one is activated (rare for me)
-    activate_virtual_env(os.environ['VIRTUAL_ENV'])
-
-else:
-    # Walk up tree looking for a buildout or virtual environment 
-    # to activate
-    folder = os.getcwd()
-    while folder != '/':
-        bin_py = os.path.join(folder, 'bin', 'py')
-        if os.path.exists(bin_py):
-            activate_buildout(folder)
-            break
-
-        activate_this = os.path.join(folder, 'bin', 'activate_this.py')
-        if os.path.exists(activate_this):
-            activate_virtual_env(folder)
-            break
-
-        activate_this = os.path.join(folder, 'venv', 'bin', 'activate_this.py')
-        if os.path.exists(activate_this):
-            activate_virtual_env(os.path.join(folder, 'venv'))
-            break
-
-        folder = os.path.split(folder)[0]
-EOF
+"py << EOF
+"import os
+"import sys
+"
+"def activate_virtual_env(project_base_dir):
+"    sys.path.insert(0, project_base_dir)
+"    activate_this = os.path.join(project_base_dir, 'bin', 'activate_this.py')
+"    execfile(activate_this, dict(__file__=activate_this))
+"
+"def activate_buildout(folder):
+"    bin_folder = os.path.join(folder, 'bin')
+"    old_path = os.environ.get('PATH', '')
+"    os.environ['PATH'] = bin_folder + os.pathsep + old_path
+"    bin_py = os.path.join(bin_folder, 'py')
+"    code = open(bin_py).read()
+"    code = code[:code.index('\n_interactive')]
+"    exec code
+"
+"if 'VIRTUAL_ENV' in os.environ:
+"    # Use virtual env if one is activated (rare for me)
+"    activate_virtual_env(os.environ['VIRTUAL_ENV'])
+"
+"else:
+"    # Walk up tree looking for a buildout or virtual environment 
+"    # to activate
+"    folder = os.getcwd()
+"    while folder != '/':
+"        bin_py = os.path.join(folder, 'bin', 'py')
+"        if os.path.exists(bin_py):
+"            activate_buildout(folder)
+"            break
+"
+"        activate_this = os.path.join(folder, 'bin', 'activate_this.py')
+"        if os.path.exists(activate_this):
+"            activate_virtual_env(folder)
+"            break
+"
+"        activate_this = os.path.join(folder, 'venv', 'bin', 'activate_this.py')
+"        if os.path.exists(activate_this):
+"            activate_virtual_env(os.path.join(folder, 'venv'))
+"            break
+"
+"        folder = os.path.split(folder)[0]
+"EOF
